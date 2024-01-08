@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      body {
+        padding: 10vh;
+      }
+      h1 {
+        margin-bottom: 40px;
+        text-align: center;
+      }
+      .row {
+        background-color: bisque;
+        padding: 20px;
+      }
+      button {
+        padding: 10px 30px;
+        cursor: pointer;
+        border: 1px solid #111;
+        margin-bottom: 20px;
+      }
+      .para1 {
+        display: none;
+      }
+      .para1:first-child {
+        display: block;
+      }
+      .active {
+        background-color: red;
+        color: #fff;
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tab</h1>
+
+    <div class="row">
+      <div class="innerRow">
+        <button class="active">Earthquake</button>
+        <button>Tsunami</button>
+        <button>Lightning</button>
+      </div>
+      <div class="paragraph">
+        <p class="para1">
+          An earthquake – also called a quake, tremor, or temblor – is the
+          shaking of the surface of Earth resulting from a sudden release of
+          energy in the lithosphere that creates seismic waves. Earthquakes can
+          range in intensity, from those that are so weak that they cannot be
+          felt, to those violent enough to propel objects and people into the
+          air, damage critical infrastructure, and wreak destruction across
+          entire cities.
+        </p>
+
+        <p class="para1">
+          A tsunami is a series of waves in a water body caused by the
+          displacement of a large volume of water, generally in an ocean or a
+          large lake. Earthquakes, volcanic eruptions and other underwater
+          explosions (including detonations, landslides, glacier calvings,
+          meteorite impacts and other disturbances) above or below water all
+          have the potential to generate a tsunami.
+        </p>
+
+        <p class="para1">
+          Lightning is a natural phenomenon formed by electrostatic discharges
+          through the atmosphere between two electrically charged regions,
+          either both in the atmosphere or one in the atmosphere and one on the
+          ground, temporarily neutralizing these in a near-instantaneous release
+          of an average of one gigajoule of energy.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      const btn = document.querySelectorAll("button");
+      const paragraphs = document.querySelectorAll(".paragraph p");
+      btn.forEach((btn1, i) => {
+        btn1.addEventListener("click", () => {
+          btn.forEach((btnEl) => btnEl.classList.remove("active"));
+          btn[i].classList.add("active");
+          paragraphs.forEach((para) => (para.style.display = "none"));
+          paragraphs[i].style.display = "block";
+        });
+      });
+    </script>
+  </body>
+</html>

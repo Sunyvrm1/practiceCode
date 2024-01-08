@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      body {
+        padding: 10vh;
+      }
+      h1 {
+        margin-bottom: 40px;
+        text-align: center;
+      }
+      .accCont {
+        background-color: bisque;
+        border: 1px solid #222;
+        margin-bottom: 10px;
+      }
+      .ques {
+        padding: 10px;
+        background: #fff;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+      }
+      .ans {
+        padding: 10px;
+        position: absolute;
+        top: 0;
+        opacity: 0;
+      }
+      .active .ans {
+        position: static;
+        opacity: 1;
+      }
+      .displayNone {
+        display: none;
+      }
+      .closeIcon {
+        display: none;
+      }
+      .active .closeIcon {
+        display: block;
+      }
+      .active .showIcon {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Accordion</h1>
+    <div class="accordion"></div>
+
+    <script>
+      fetch("acc.json")
+        .then((res) => res.json())
+        .then((data) => {
+          data.faqs.map((faq) => {
+            console.log(faq);
+            const accordion = document.querySelector(".accordion");
+            const html = `<div class="accCont">
+                    <div class="ques">
+            <p>${faq.ques}</p>
+            <p class="arrow">
+                <ion-icon class="showIcon" name="add-outline"></ion-icon>
+                <ion-icon class="closeIcon" name="close-outline"></ion-icon>
+            </p>
+        </div>
+            <div class="ans">
+            <p>${faq.ans}</p>
+        </div>
+    </div>`;
+            accordion.insertAdjacentHTML("beforeend", html);
+          });
+          const ques = document.querySelectorAll(".ques");
+          const accCont = document.querySelectorAll(".accCont");
+          ques.forEach((q, i) => {
+            q.addEventListener("click", () => {
+              accCont[i].classList.toggle("active");
+            });
+          });
+        });
+    </script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

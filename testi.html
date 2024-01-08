@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+      }
+      body{
+        overflow: hidden;
+      }
+      .testiCont {
+        background-color: bisque;
+        width: 100%;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .testi {
+        background-color: #fff;
+        padding: 30px;
+        width: 1000px;
+        text-align: center;
+        position: absolute;
+        transition: transform 0.5s;
+      }
+      h3 {
+        margin-bottom: 20px;
+      }
+      .btn1 {
+        position: absolute;
+        background-color: #fff;
+        width: 50px;
+        height: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 50%;
+      }
+      .left {
+        left: 20px;
+      }
+      .right {
+        right: 20px;
+      }
+      .dotButton {
+        width: 10px;
+        height: 10px;
+        background-color: #111;
+        border: none;
+        border-radius: 50%;
+        margin-left: 10px;
+        position: relative;
+        z-index: 99;
+        bottom: 10px;
+        margin-top: 480%;
+      }
+      .dotButton {
+        cursor: pointer;
+      }
+      .activeDot{
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="testiCont">
+      <div class="testi">
+        <h3>
+          An An earthquake – also called a quake, tremor, or temblor – is the
+          shaking of the surface of Earth resulting from a sudden release of
+          energy in the lithosphere that creates seismic waves.
+        </h3>
+        <p>Earthquake</p>
+      </div>
+      <div class="testi">
+        <h3>
+          A tsunami is a series of waves in a water body caused by the
+          displacement of a large volume of water, generally in an ocean or a
+          large lake.
+        </h3>
+        <p>Tsunami</p>
+      </div>
+      <div class="testi">
+        <h3>
+          Lightning is a natural phenomenon formed by electrostatic discharges
+          through the atmosphere between two electrically charged regions,
+          either both in the atmosphere or one in the atmosphere and one on the
+          ground.
+        </h3>
+        <p>Lightning</p>
+      </div>
+      <button class="btn1 left">&larr;</button>
+      <button class="btn1 right">&rarr;</button>
+      <div class="dots"></div>
+    </div>
+
+    <script>
+      const testi = document.querySelectorAll(".testi");
+      const left = document.querySelector(".left");
+      const right = document.querySelector(".right");
+      const dotContainer = document.querySelector(".dots");
+      let curIndex = 0;
+      const matchIndex = testi.length;
+
+      const createDots = function () {
+        testi.forEach((_, i) => {
+          dotContainer.insertAdjacentHTML(
+            "beforeend",
+            `<button class="dotButton" data-slide="${i}"></button>`
+          );
+        });
+      };
+      createDots();
+
+      const activateDots = function(slide){
+        document.querySelectorAll(".dotButton").forEach(dot => dot.classList.remove("activeDot"))
+        document.querySelector(`.dotButton[data-slide="${slide}"]`).classList.add("activeDot");
+      }
+
+      const gotoSlide = function (gotoSlide) {
+        testi.forEach((test, i) => {
+          test.style.transform = `translateX(${200 * (i - curIndex)}%)`;
+        });
+      };
+
+      gotoSlide(0);
+      activateDots(0);
+
+      const prev = function () {
+        if (curIndex == 0) {
+          curIndex = matchIndex - 1;
+        } else {
+          curIndex--;
+        }
+        gotoSlide(curIndex);
+        activateDots(curIndex);
+      };
+
+      const next = function () {
+        if (curIndex === matchIndex - 1) {
+          curIndex = 0;
+        } else {
+          curIndex++;
+        }
+        gotoSlide(curIndex);
+        activateDots(curIndex);
+      };
+
+      right.addEventListener("click", next);
+      left.addEventListener("click", prev);
+
+    const dotButton = document.querySelectorAll(".dotButton");
+    dotButton.forEach((dot) => {
+        dot.addEventListener("click", (e) => {
+            const clickDot = e.target.dataset.slide;
+            curIndex = Number(clickDot);
+            gotoSlide(curIndex);
+            activateDots(curIndex);
+        })
+    })
+
+    setInterval(next, 3000);
+    </script>
+  </body>
+</html>
