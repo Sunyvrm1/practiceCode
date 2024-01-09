@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }   
+        .slider{
+            overflow: hidden;
+            position: relative;
+            height: 400px;
+            width: 80%;
+            margin: 50px auto;
+        }
+        .slide{
+            position: absolute;
+            top: 0px;
+            transition: transform 0.2s;
+        }
+        img{
+            width: 300px;
+            height: 400px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .btn{
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            color: #111;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            z-index: 2;
+            border-radius: 50%;
+            border: 1px solid #111;
+            cursor: pointer;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .left{
+            left: 10px;
+        }
+        .right{
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slider">
+        <div class="slide">
+            <img src="/images/slider1.jpg" alt="">
+        </div>
+        <div class="slide">
+            <img src="/images/slider2.jpg" alt="">
+        </div>
+        <div class="slide">
+            <img src="/images/slider3.jpg" alt="">
+        </div>
+        <div class="slide">
+            <img src="/images/slider4.jpg" alt="">
+        </div>
+        <div class="slide">
+            <img src="/images/slider5.jpg" alt="">
+        </div>
+        <div class="slide">
+            <img src="/images/slider6.jpg" alt="">
+        </div>
+        <div class="slide">
+            <img src="/images/slider7.jpg" alt="">
+        </div>
+        <div class="slide">
+            <img src="/images/slider8.jpg" alt="">
+        </div>
+        <div class="slide">
+            <img src="/images/slider9.jpg" alt="">
+        </div>
+        <div class="slide">
+            <img src="/images/slider10.jpg" alt="">
+        </div>
+        <button class="btn left">&larr;</button>
+        <button class="btn right">&rarr;</button>
+    </div>
+    
+
+    <script>
+        const slide = document.querySelectorAll(".slide");
+        const right = document.querySelector(".right");
+        let curSlide = 0;
+        const maxSlide = slide.length;
+        slide.forEach((s, i) => {
+            s.style.transform = `translate(${100 * i}%)`
+        })
+        right.addEventListener("click", () => {
+            if(curSlide === maxSlide - 5){
+                curSlide = 0
+            } else{
+                curSlide++;
+            }
+            slide.forEach((s, i) => {
+            s.style.transform = `translate(${100 * (i - curSlide)}%)`
+        })
+        })
+    </script>
+</body>
+</html>
